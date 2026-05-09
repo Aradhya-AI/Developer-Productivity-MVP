@@ -1,9 +1,12 @@
+import os
 from pathlib import Path
 
 import pandas as pd
 
 
-DATA_PATH = Path(__file__).parent / "data" / "developer_productivity_data.xlsx"
+BASE_DIR = Path(__file__).resolve().parent
+DEFAULT_DATA_PATH = BASE_DIR / "data" / "developer_productivity_data.xlsx"
+DATA_PATH = Path(os.environ.get("DATA_PATH", DEFAULT_DATA_PATH)).resolve()
 
 
 class MetricsService:
@@ -14,6 +17,13 @@ class MetricsService:
         self._load_data()
 
     def _load_data(self):
+        if not self.data_path.exists():
+            raise FileNotFoundError(
+                f"Excel workbook not found at {self.data_path}. "
+                "Ensure backend/data/developer_productivity_data.xlsx is committed "
+                "or set DATA_PATH to the workbook location."
+            )
+
         workbook = pd.ExcelFile(self.data_path)
         self.developers = pd.read_excel(workbook, "Dim_Developers")
         self.issues = pd.read_excel(workbook, "Fact_Jira_Issues")
