@@ -1,5 +1,7 @@
 # Developer Productivity MVP
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Aradhya-AI/Developer-Productivity-MVP)
+
 Developer Productivity MVP is a full-stack dashboard for an Individual Contributor (IC). It turns engineering activity data from an Excel workbook into clear metrics, plain-English insights, and practical recommended actions.
 
 The goal is not only to show numbers. The product helps a developer understand what is happening in their workflow and what they can do next.
