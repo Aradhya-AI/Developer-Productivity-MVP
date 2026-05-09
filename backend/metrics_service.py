@@ -79,11 +79,10 @@ class MetricsService:
                 key="bug_rate",
                 label="Bug Rate",
                 value=current["bug_rate"],
-                suffix="%",
+                suffix="ratio",
                 definition="Bugs divided by completed issues",
                 previous_value=previous["bug_rate"] if previous else None,
                 lower_is_better=True,
-                percent=True,
             ),
             self._metric_card(
                 key="deployment_frequency",
@@ -302,7 +301,7 @@ class MetricsService:
             "month": month,
             "lead_time_days": round(metrics["lead_time_days"], 1),
             "cycle_time_days": round(metrics["cycle_time_days"], 1),
-            "bug_rate": round(metrics["bug_rate"] * 100, 1),
+            "bug_rate": round(metrics["bug_rate"], 1),
             "deployments": metrics["deployment_frequency"],
             "merged_prs": metrics["pr_throughput"],
         }
