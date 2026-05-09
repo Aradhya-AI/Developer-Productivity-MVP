@@ -183,10 +183,15 @@ function App() {
 }
 
 function MetricCard({ metric }) {
+  const isBugRate = metric.key === "bug_rate";
+  const displayValue = isBugRate && metric.suffix === "%" ? metric.value / 100 : metric.value;
+  const displaySuffix = isBugRate ? "ratio" : metric.suffix;
   const changeText =
     metric.change === null
       ? "No previous month"
-      : `${metric.change > 0 ? "+" : ""}${metric.change} vs previous month`;
+      : `${metric.change > 0 ? "+" : ""}${
+          isBugRate && metric.suffix === "%" ? metric.change / 100 : metric.change
+        } vs previous month`;
 
   return (
     <article className={`metric-card ${metric.signal}`}>
@@ -196,8 +201,8 @@ function MetricCard({ metric }) {
       </div>
       <div>
         <p className="metric-value">
-          {metric.value}
-          <span>{metric.suffix}</span>
+          {displayValue}
+          <span>{displaySuffix}</span>
         </p>
         <p className="metric-change">{changeText}</p>
       </div>
